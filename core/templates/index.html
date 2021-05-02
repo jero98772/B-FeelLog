@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+	<meta charset="UTF-8"> 
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<form method="post" >
+		<h1>blogs</h1>
+		{% for i in topics %}
+      <br>
+			<a href="blog/{{ i }}"> {{ i[:-5] }} </a>
+		{% endfor %}
+		</form>
+	</body>
+</html>

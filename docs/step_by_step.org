@@ -1,0 +1,17 @@
+* what i going to do ?
+** a way to manage may blog 
+* inputs
+** [#A] -_new publication_-
+** [#A] txtp
+** [#A] txtq
+** [#A] id
+** [#A] where
+** [#A] langue (english and spanish)
+** [#B] -_blogs with publications_-
+** [#B] blogname
+** [#B] tempalte
+* accions
+** DONE Translate 
+** save txtq ,txtp ,id in "where"
+*** add to html file  2 html files , 1 in english and 1 in spanish
+** get new html

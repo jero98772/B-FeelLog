@@ -1,0 +1,17 @@
+{% extends  'config/template.html'%}
+{% block content %}
+{% if session['loged'] %}
+<ul>
+	<li><a href="add.html">add data</a></li>
+	<li><a href="createNewTopic.html">create New Topic</li>
+	<li><a href="config.html">config</li>
+</ul>
+{% else %}
+<h1>token</h1>
+add token
+<br>
+<input type="text" name="key">
+<br>
+<input type="submit" value="submit">
+{% endif %}
+{% endblock %}

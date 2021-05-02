@@ -1,0 +1,26 @@
+{% extends  'config/template.html'%}
+{% block content %}
+<center>
+	<h1>	
+		Configuration	
+	</h1>
+</center>
+<a href="./">back</a>
+<hr>
+<h2>Token</h2>
+<h3>generate new token</h3>
+<input type="submit" name="new Token" value="new Token">
+
+<h3>generate custom token</h3>
+<input type="text" name="customTokenValue">
+<br>
+<input type="submit" name="custom Token" value="custom Token">
+<br>
+<hr>
+<h2>Author</h2>
+<h3>who is the Author</h3>
+<input type="text" name="author" value="{{ defautlAuthor }}">
+<br>
+<input type="submit" name="who" value="who">
+<br>
+{% endblock %}
