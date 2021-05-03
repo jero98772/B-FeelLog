@@ -10,4 +10,7 @@
 ***** translate
 ***** template
 **** call configuration
+**** better web navigation
 *** handle error in http://localhost:9600/blog/defaulttoken/config.html when save data , later dont show error
+* tests
+** 

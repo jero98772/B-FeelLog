@@ -21,7 +21,12 @@ def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 		file.write()
 		file.close()
 	"""
-	newContent = readFile(name).replace(replaceTo,content+replaceTo)
+	try:
+		initTemplate = "{% extends  'template.html'%}{% block content %}"
+		endTemplate = "{% endblock %}"
+		newContent = readFile(name).replace(replaceTo,content+replaceTo)
+	except:
+		newContent = replaceTo.replace(replaceTo,content+replaceTo)
 	writeTxt(name,newContent,option="w")
 def hashStrHex(password):
 	password = str(password)
@@ -115,7 +120,6 @@ def blogsview(path,app):
 def genBlogPreview(name,):
 	txt = f'\n\t@app.route("/blog/{name}")\n\tdef {name[:-5]}():\n\t\treturn render_template("blog/{name}")'
 	return txt
-print(genBlogPreview("no name"))
 def updateBlog(dirs,dataDir):
     newCode = """from flask import Flask, render_template
 app = Flask(__name__)

@@ -1,3 +1,5 @@
+{% extends  'template.html'%}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 	<meta charset="UTF-8"> 
@@ -6,11 +8,12 @@
 	</head>
 	<body>
 		<form method="post" >
-		<h1>blogs</h1>
+		<h1>blogs of {{ name }}</h1>
 		{% for i in topics %}
-      <br>
+			<br>
 			<a href="blog/{{ i }}"> {{ i[:-5] }} </a>
 		{% endfor %}
 		</form>
 	</body>
 </html>
+{% endblock %}

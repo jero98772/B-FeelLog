@@ -1,0 +1,20 @@
+{% extends  'template.html'%}
+{% block content %}
+{% if session['loged'] %}
+<form method="post" >
+<center>
+	<h1>Author</h1>
+</center>
+<hr>
+<h3>who is the Author</h3>
+<input type="text" name="author" value="{{ defautlAuthor }}">
+<br>
+<input type="submit" name="who" value="who">
+<br>
+</form>
+{% else %}
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
+{% endblock %}

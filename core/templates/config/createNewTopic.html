@@ -1,19 +1,26 @@
-{% extends  'config/template.html'%}
+{% extends  'template.html'%}
 {% block content %}
+{% if session['loged'] %}
+<form method="post" >
 <h2>Topic name*</h2>
 <input type="text" name="topicName">
-<h2>translate to</h2>
+<h2>Translate to... (optional)</h2>
 <select name="translate">
 	<option>no translate</option>
 	<option>español</option>
 	<option>english</option>
 </select>
-<h2>topic template</h2>
+<h2>Html template (optional)</h2>
 <textarea rows="5" cols="80" name="template" id="TITLE">
 html code here , in body 
 </textarea>
 <br>
 <input type="submit" name="">
 <br>
-<a href="./">back</a>
+</form>
+{% else %}
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
 {% endblock %}

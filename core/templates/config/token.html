@@ -1,13 +1,13 @@
-{% extends  'config/template.html'%}
+{% extends  'template.html'%}
 {% block content %}
+{% if session['loged'] %}
+<form method="post" >
 <center>
 	<h1>	
-		Configuration	
+		Token	
 	</h1>
 </center>
-<a href="./">back</a>
 <hr>
-<h2>Token</h2>
 <h3>generate new token</h3>
 <input type="submit" name="new Token" value="new Token">
 
@@ -17,10 +17,10 @@
 <input type="submit" name="custom Token" value="custom Token">
 <br>
 <hr>
-<h2>Author</h2>
-<h3>who is the Author</h3>
-<input type="text" name="author" value="{{ defautlAuthor }}">
-<br>
-<input type="submit" name="who" value="who">
-<br>
+</form>
+{% else %}
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
 {% endblock %}

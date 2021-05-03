@@ -1,0 +1,18 @@
+{% extends  'template.html'%}
+{% block content %}
+{% if session['loged'] %}
+<h1>Configuration and customisation menu</h1>
+<hr>
+<h2>
+<ul>
+	<li><a href="add.html">add data</a></li>
+	<li><a href="token.html"><b>Token</b> config</a></li>
+	<li><a href="author.html"><b>Author</b> config</a></li>
+</ul>
+</h2>
+{% else %}
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
+{% endblock %}

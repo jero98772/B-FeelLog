@@ -1,20 +1,26 @@
-<!--add data-->
-{% extends  'config/template.html'%}
+{% extends  'template.html'%}
 {% block content %}
+{% if session['loged'] %}
+<form method="post" >
 <h1>blog config</h1>
 <hr>
 <h2>new input</h2>
 <br>
 <h3>Title*</h3>
-<input type="text" name="txtp">
+<input type="text" name="txtp" required>
 <h3>Text*</h3>
-<input type="text" name="txtq">
+<input type="text" name="txtq" required>
 <h3>id*</h3>
-<input type="text" name="id">
+<input type="text" name="id" required>
 <h3>destiantion</h3>
-<input type="text" name="destiantion">
+<input type="text" name="destiantion" required>
 <br>
-<input type="submit" value="submit">
+<input type="submit" value="submit" required>
 <br>
-<a href="./">back</a>
+</form>
+{% else %}
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
 {% endblock %}

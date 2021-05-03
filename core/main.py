@@ -4,39 +4,35 @@
 B→FeelLog - 2021 - por jero98772
 B→FeelLog - 2021 - by jero98772
 """
-from flask import Flask, render_template ,request,session
+from flask import Flask, render_template ,request,session,redirect
 from .tools.webutils import *
 app = Flask(__name__)
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 BLOGWEBDIR = "/blog/"
 BLOGPATH = "core/templates/blog/"
 AUTHORFILE = "data/authorfile.txt"
 TOKENPATH = "data/token.txt"
 BLOGFILE = "core/blogs.py"
-#BLOG = readCode(BLOGFILE)
+INDEX = "/blog.html"
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
 BLOGS = os.listdir(BLOGPATH)
-DBCONFIG = "topicsConfig"
+#DBCONFIG = "topicsConfig"
 if os.path.isfile(BLOGFILE):
-	print("fileok")
 	try:
 		from .blogs import blogs 
 		from .blogs import app as appblogs 
-		print("blog")
-		print("error")
 		joinWebpage(BLOGS,appblogs,app,url=BLOGWEBDIR)
 	except:
 		updateBlog(BLOGS,BLOGFILE)
-		print("no Error")
 class webpage:
 	app.secret_key = TOKEN
-	print("Configuration token:\n"+TOKEN+"\n","go to :\n\tlocalhost:9600"+BLOGWEBDIR+TOKEN+"/\nto get acces to configuration , rember your token is\n\t"+TOKEN)
-	@app.route(BLOGWEBDIR[:-1]+".html",methods=['POST','GET'])
+	print("\n* Configuration token:\n"+TOKEN+"\n","go to :\n\n\tlocalhost:9600"+BLOGWEBDIR+TOKEN+"/\n\nto get acces to configuration , rember your token is\n\n\t"+TOKEN,"\n")
+	@app.route(INDEX,methods=['POST','GET'])
 	def index():
 		updateBlog(BLOGS,BLOGFILE)
-		frame = ""
-		return render_template("index.html", topics = BLOGS )
-	@app.route(BLOGWEBDIR+TOKEN+"/add.html",methods=['POST','GET'])	
+		return render_template("index.html", topics = BLOGS, name = AUTHOR )
+	@app.route(BLOGWEBDIR+"/add.html",methods=['POST','GET'])	
 	def add():
 		if not session.get("loged"):
 			return "error: you cannot perform this operation unless you are root."
@@ -46,10 +42,11 @@ class webpage:
 				txtq = request.form["txtq"]
 				txtid = request.form["id"]
 				name = request.form["destiantion"]
+				#if os.path.isfile(BLOGFILE):
 				content = doHtml(txtp,txtq,txtid,AUTHOR)
 				writeblog(BLOGPATH+name+".html",content)
 			return render_template("config/addData.html",webs= os.listdir(BLOGPATH))
-	@app.route(BLOGWEBDIR+TOKEN+"/createNewTopic.html",methods=['POST','GET'])	
+	@app.route(BLOGWEBDIR+"/createNewTopic.html",methods=['POST','GET'])	
 	def CreateNewTopic():
 		if not session.get("loged"):
 			return "error: you cannot perform this operation unless you are root."
@@ -58,24 +55,42 @@ class webpage:
 				topicName = request.form["topicName"]
 				template = request.form["template"]
 			return render_template("config/createNewTopic.html")
-	@app.route(BLOGWEBDIR+TOKEN+"/config.html",methods=['POST','GET'])
-	def config():
+	@app.route(BLOGWEBDIR+"/token.html",methods=['POST','GET'])
+	def token():
 		if not session.get("loged"):
-			return "error: you cannot perform this operation unless you are root."
+			return "error: you cannot perform this operation unless you are root.\n please get loged with your token!!"
 		else:
 			if request.method == "POST":
-				if request.form['who'] == 'who':
-					writeTxt(AUTHORFILE,request.form['author'],"w")
 				if request.form['new Token'] == 'new Token':
 					writeTxt(TOKENPATH,genToken(),"w")
 					session["loged"] = False
-				if request.form['custom Token'] == 'custom Token':
+				elif request.form['custom Token'] == 'custom Token':
 					writeTxt(TOKENPATH,request.form['customTokenValue'],"w")
 					session["loged"] = False
-			return render_template("config/config.html",defautlAuthor = AUTHOR)
+				return redirect(INDEX)
+			return render_template("config/token.html")
+	@app.route(BLOGWEBDIR+"/author.html",methods=['POST','GET'])
+	def author():
+		if not session.get("loged"):
+			return "error: you cannot perform this operation unless you are root.\n please get loged with your token!!"
+		else:
+			if request.method == "POST":
+				if request.form['who'] == 'who':
+					author = request.form['author']
+					writeTxt(AUTHORFILE,author,"w")
+					session["author"] = author
+				return redirect(INDEX)
+			return render_template("config/author.html",defautlAuthor = AUTHOR)
+	@app.route(BLOGWEBDIR+"/config.html",methods=['POST','GET'])
+	def config():
+		return render_template("config/configmenu.html")
 	@app.route(BLOGWEBDIR+TOKEN+"/",methods=['POST','GET'])
 	def trueLoged():
+		msg = ""
 		if request.method == "POST":
 			if request.form["key"] == TOKEN:
 				session["loged"] = True
-		return render_template("config/addkey.html")
+				return redirect(BLOGWEBDIR+"/customise.html")
+			else:
+				msg = "Invalid token"
+		return render_template("config/addkey.html",error=msg)

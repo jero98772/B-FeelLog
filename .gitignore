@@ -130,3 +130,4 @@ dmypy.json
 
 #files 
 /core/templates/blog/*
+/core/blogs.py
