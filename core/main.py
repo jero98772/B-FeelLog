@@ -16,7 +16,8 @@ BLOGFILE = "core/blogs.py"
 INDEX = "/blog.html"
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
-BLOGS = os.listdir(BLOGPATH)
+BLOGS = filesInFolders(BLOGPATH)
+SUPORTEDLANGUAGES = ["spanish","english","dutch"]
 #DBCONFIG = "topicsConfig"
 if os.path.isfile(BLOGFILE):
 	try:
@@ -30,6 +31,7 @@ class webpage:
 	print("\n* Configuration token:\n"+TOKEN+"\n","go to :\n\n\tlocalhost:9600"+BLOGWEBDIR+TOKEN+"/\n\nto get acces to configuration , rember your token is\n\n\t"+TOKEN,"\n")
 	@app.route(INDEX,methods=['POST','GET'])
 	def index():
+		session["author"] = AUTHOR
 		updateBlog(BLOGS,BLOGFILE)
 		return render_template("index.html", topics = BLOGS, name = AUTHOR )
 	@app.route(BLOGWEBDIR+"/add.html",methods=['POST','GET'])	
@@ -42,19 +44,24 @@ class webpage:
 				txtq = request.form["txtq"]
 				txtid = request.form["id"]
 				name = request.form["destiantion"]
-				#if os.path.isfile(BLOGFILE):
+				#if os.path.isdir(BLOGPATH+name):
+				#manageTranslate()
+				#os.listdir(name)
+				#acceder a los directiros 
+				#guradar 
 				content = doHtml(txtp,txtq,txtid,AUTHOR)
 				writeblog(BLOGPATH+name+".html",content)
-			return render_template("config/addData.html",webs= os.listdir(BLOGPATH))
+			return render_template("config/addData.html",blogs = blogsNames(BLOGPATH))
 	@app.route(BLOGWEBDIR+"/createNewTopic.html",methods=['POST','GET'])	
 	def CreateNewTopic():
 		if not session.get("loged"):
 			return "error: you cannot perform this operation unless you are root."
 		else:
 			if request.method == "POST":
-				topicName = request.form["topicName"]
-				template = request.form["template"]
-			return render_template("config/createNewTopic.html")
+				translateFrom = request.form["translate_from"]
+				translateTo = request.form["translate_to"]
+				session["translateFrom"] = translateFrom
+			return render_template("config/createNewTopic.html" ,languages = SUPORTEDLANGUAGES)
 	@app.route(BLOGWEBDIR+"/token.html",methods=['POST','GET'])
 	def token():
 		if not session.get("loged"):
@@ -78,7 +85,6 @@ class webpage:
 				if request.form['who'] == 'who':
 					author = request.form['author']
 					writeTxt(AUTHORFILE,author,"w")
-					session["author"] = author
 				return redirect(INDEX)
 			return render_template("config/author.html",defautlAuthor = AUTHOR)
 	@app.route(BLOGWEBDIR+"/config.html",methods=['POST','GET'])
@@ -90,7 +96,7 @@ class webpage:
 		if request.method == "POST":
 			if request.form["key"] == TOKEN:
 				session["loged"] = True
-				return redirect(BLOGWEBDIR+"/customise.html")
+				return redirect(BLOGWEBDIR+"customise.html")
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)

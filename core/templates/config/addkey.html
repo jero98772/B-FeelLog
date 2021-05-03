@@ -1,11 +1,9 @@
 {% extends  'template.html'%}
 {% block content %}
 {% if session['loged'] %}
-<ul>
-	<li><a href="add.html">add data</a></li>
-	<li><a href="createNewTopic.html">create New Topic</li>
-	<li><a href="config.html">config</li>
-</ul>
+<h1>you are trusted :-)</h1>
+<br>
+please go to <a href="/blog/config.html">configuration</a>
 {% else %}
 <h1>token</h1>
 add token

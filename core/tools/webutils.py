@@ -43,46 +43,53 @@ def webTranslate(txt,writeIn,translateTo):
 	es -> spanish 
 	...
 	"""
-	from deep_translator import GoogleTranslator 
-	translatedTxt = GoogleTranslator(source=writeIn, target=translateTo).translate(txt)
+	from deep_translator import MyMemoryTranslator 
+	translatedTxt = MyMemoryTranslator(source=writeIn, target=translateTo).translate(txt)
 	return translatedTxt
 #txt = "mi amigo fue la casa del perro, cuando descubrio que una serpiente se lo comio";print(webTranslate(txt,"es","en"))
 #txt to test
+def manageTranslate(writeIn,translateTo):
+	try:
+		translateTo[translateTo.index(writeIn)] = ""
+	except:
+		pass
+	#if writeIn in translateTo: 
+	#file with en 
 def doHtmlInit(name,content):
 	return f"""
-	<!DOCTYPE html>
-	<html lang="en">
-		<meta charset="UTF-8"> 
-		<head>
-			<title>blog {name}</title>
-		</head>
-		<body>
-				<h1>{name}</h1>
-				<br>
-			<center>
-				<hr>
-				{content}
-			</center>
-		</body>
-	</html>
+<!DOCTYPE html>
+<html lang="en">
+	<meta charset="UTF-8"> 
+	<head>
+		<title>blog {name}</title>
+	</head>
+	<body>
+			<h1>{name}</h1>
+			<br>
+		<center>
+			<hr>
+			{content}
+		</center>
+	</body>
+</html>
 	"""
 def doHtml(txtp,txtq,id,who):
 	now = time.ctime()
 	return f"""
-	<div id="{id}">
-	<h2>{txtp}</h2>
-	<br>
-	<table width = "420">
-		<tr>
-			<td>
-				<p>{txtq}</p>
-			</td>
-		</tr>
-	</table>
-	<p>{now},by {who}.</p>
-	</div>
-	<hr>
-	"""
+<div id="{id}">
+<h2>{txtp}</h2>
+<br>
+<table width = "420">
+	<tr>
+		<td>
+			<p>{txtq}</p>
+		</td>
+	</tr>
+</table>
+<p>{now},by {who}.</p>
+</div>
+<hr>
+"""
 def readFile(name):
 	with open(name, 'r') as file:
 		content = ""
@@ -117,7 +124,7 @@ def blogsview(path,app):
 		def site():
 			return render_template(blogpath+blog) 
 	return site()
-def genBlogPreview(name,):
+def genBlogPreview(name):
 	txt = f'\n\t@app.route("/blog/{name}")\n\tdef {name[:-5]}():\n\t\treturn render_template("blog/{name}")'
 	return txt
 def updateBlog(dirs,dataDir):
@@ -134,3 +141,24 @@ def joinWebpage(direccions,webApp,actualapp,url=""):
 			def site():
 				return webApp
 		return site()
+def addToText(text, add):
+    return add + text
+def filesInFolders(path,tag = ".html"):
+	folderFiles = os.listdir(path)
+	files = []
+	for i in folderFiles:
+		if i[-5:] != tag:
+			name =  [i+"_"+ii for ii in os.listdir(path+i)] 
+			files += name
+		else: 
+			files +=  [i]
+	return files
+def blogsNames(path,tag = ".html"):
+	blogs = os.listdir(path)
+	names = []
+	for i in blogs:
+		if i[-5:] == tag:
+			names.append(i[:-5])
+		else:
+			names.append(i)
+	return names

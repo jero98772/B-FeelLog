@@ -13,8 +13,13 @@
 <h3>id*</h3>
 <input type="text" name="id" required>
 <h3>destiantion</h3>
-<input type="text" name="destiantion" required>
+<select name="destiantion">
+	{% for blog in blogs %}
+		<option>{{ blog }}</option>
+	{% endfor %}
+</select>
 <br>
+<!--input type="text" name="destiantion" required-->
 <input type="submit" value="submit" required>
 <br>
 </form>

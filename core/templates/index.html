@@ -7,13 +7,14 @@
 		<title></title>
 	</head>
 	<body>
-		<form method="post" >
 		<h1>blogs of {{ name }}</h1>
+		<hr>
+		<h2>
 		{% for i in topics %}
 			<br>
 			<a href="blog/{{ i }}"> {{ i[:-5] }} </a>
 		{% endfor %}
-		</form>
+		</h2>
 	</body>
 </html>
 {% endblock %}

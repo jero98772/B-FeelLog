@@ -4,12 +4,18 @@
 <form method="post" >
 <h2>Topic name*</h2>
 <input type="text" name="topicName">
-<h2>Translate to... (optional)</h2>
-<select name="translate">
-	<option>no translate</option>
-	<option>español</option>
-	<option>english</option>
-</select>
+<h2>Translate (optional)</h2>
+<h3>Write in</h3>
+	<select name="translate_from">
+	{% for i in languages %}
+		<option>{{ i }}</option>
+	{% endfor %}
+	</select>
+	<h3>Translate to...</h3>
+	{% for i in languages %}
+	<input type="checkbox" name="translate_to" value="{{ i }}">
+	<label for="{{ i }}">{{ i }}</label><br>
+	{% endfor %}
 <h2>Html template (optional)</h2>
 <textarea rows="5" cols="80" name="template" id="TITLE">
 html code here , in body 
