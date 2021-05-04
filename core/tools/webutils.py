@@ -24,7 +24,8 @@ def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 	try:
 		initTemplate = "{% extends  'template.html'%}{% block content %}"
 		endTemplate = "{% endblock %}"
-		newContent = readFile(name).replace(replaceTo,content+replaceTo)
+		content = initTemplate+content+replaceTo+endTemplate
+		newContent = readFile(name).replace(replaceTo,)
 	except:
 		newContent = replaceTo.replace(replaceTo,content+replaceTo)
 	writeTxt(name,newContent,option="w")

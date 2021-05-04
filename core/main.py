@@ -44,13 +44,30 @@ class webpage:
 				txtq = request.form["txtq"]
 				txtid = request.form["id"]
 				name = request.form["destiantion"]
-				#if os.path.isdir(BLOGPATH+name):
-				#manageTranslate()
+				print("1")
+				if os.path.isdir(BLOGPATH+name):
+					languages = os.listdir(BLOGPATH+name)
+					manageTranslate(str(session["translateFrom"])+".html",languages)
+					print("trasnlate")
+					for language in languages:
+						print(language[:-5])
+						txtp_translated = webTranslate(txtp,session["translateFrom"],language)
+						txtq_translated = webTranslate(txtq,session["translateFrom"],language)
+						content = doHtml(txtp_translated,txtq_translated,txtid,AUTHOR)
+						writeblog(BLOGPATH+name+"/"+language,content)
+						print("trasnlate")
+					else:
+						print("end trasnlate")
+						content = doHtml(txtp,txtq,txtid,AUTHOR)
+						writeblog(BLOGPATH+name+"/"+str(session["translateFrom"])+".html",content)	
+				else:
+					content = doHtml(txtp,txtq,txtid,AUTHOR)
+					writeblog(BLOGPATH+name+".html",content)
+					print("out")
 				#os.listdir(name)
 				#acceder a los directiros 
 				#guradar 
-				content = doHtml(txtp,txtq,txtid,AUTHOR)
-				writeblog(BLOGPATH+name+".html",content)
+
 			return render_template("config/addData.html",blogs = blogsNames(BLOGPATH))
 	@app.route(BLOGWEBDIR+"/createNewTopic.html",methods=['POST','GET'])	
 	def CreateNewTopic():
@@ -96,7 +113,7 @@ class webpage:
 		if request.method == "POST":
 			if request.form["key"] == TOKEN:
 				session["loged"] = True
-				return redirect(BLOGWEBDIR+"customise.html")
+				return redirect(BLOGWEBDIR+"configmenu.html")
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)
