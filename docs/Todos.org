@@ -10,8 +10,11 @@
 ***** translate
 ***** template
 **** call configuration
-**** better web navigation
-*** handle error in http://localhost:9600/blog/defaulttoken/config.html when save data , later dont show error
+**** DONE better web navigation
+*** DONE handle error in http://localhost:9600/blog/defaulttoken/config.html when save data , later dont show error
 * tests
 ** add data
 *** is over writing
+* TODOS
+** add documentation for login
+** edition mode (?)

@@ -17,7 +17,7 @@ INDEX = "/blog.html"
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
 BLOGS = filesInFolders(BLOGPATH)
-SUPORTEDLANGUAGES = ["spanish","english","dutch"]
+SUPORTEDLANGUAGES = ["No translate","spanish","english","dutch"]
 #DBCONFIG = "topicsConfig"
 if os.path.isfile(BLOGFILE):
 	try:
@@ -67,7 +67,6 @@ class webpage:
 				#os.listdir(name)
 				#acceder a los directiros 
 				#guradar 
-
 			return render_template("config/addData.html",blogs = blogsNames(BLOGPATH))
 	@app.route(BLOGWEBDIR+"/createNewTopic.html",methods=['POST','GET'])	
 	def CreateNewTopic():
@@ -75,9 +74,16 @@ class webpage:
 			return "error: you cannot perform this operation unless you are root."
 		else:
 			if request.method == "POST":
+				name = request.form["name"]
 				translateFrom = request.form["translate_from"]
 				translateTo = request.form["translate_to"]
 				session["translateFrom"] = translateFrom
+				if SUPORTEDLANGUAGES[0] == translateTo:
+					writeblog(BLOGPATH+name+".html","")
+				else:
+					os.mkdir(BLOGPATH+name)
+				writeblog(name,"")
+				return redirect(BLOGWEBDIR+"name.html")
 			return render_template("config/createNewTopic.html" ,languages = SUPORTEDLANGUAGES)
 	@app.route(BLOGWEBDIR+"/token.html",methods=['POST','GET'])
 	def token():
@@ -113,7 +119,7 @@ class webpage:
 		if request.method == "POST":
 			if request.form["key"] == TOKEN:
 				session["loged"] = True
-				return redirect(BLOGWEBDIR+"configmenu.html")
+				return redirect(BLOGWEBDIR+"config.html")
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)

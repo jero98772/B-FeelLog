@@ -3,11 +3,11 @@
 {% if session['loged'] %}
 <form method="post" >
 <h2>Topic name*</h2>
-<input type="text" name="topicName">
+<input type="text" name="name">
 <h2>Translate (optional)</h2>
 <h3>Write in</h3>
 	<select name="translate_from">
-	{% for i in languages %}
+	{% for i in languages[1:] %}
 		<option>{{ i }}</option>
 	{% endfor %}
 	</select>
