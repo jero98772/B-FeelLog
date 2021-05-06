@@ -26,7 +26,7 @@ if os.path.isfile(BLOGFILE):
 	try:
 		from .blogs import blogs 
 		from .blogs import app as appblogs 
-		joinWebpage(BLOGS,appblogs,app,url=BLOGWEBDIR)
+		joinWebpage(BLOGSFILES,appblogs,app,url=BLOGWEBDIR)
 	except:
 		updateBlog(BLOGSFILES,BLOGFILE)
 class webpage:
@@ -36,7 +36,8 @@ class webpage:
 	def index():
 		session["author"] = AUTHOR
 		updateBlog(BLOGSFILES,BLOGFILE)
-		return render_template("index.html", topics = BLOGS, name = AUTHOR )
+		#joinWebpage(BLOGS,appblogs,app,url=BLOGWEBDIR)
+		return render_template("index.html", topics = BLOGS,topicsaddres =BLOGSFILES, name = AUTHOR )
 	@app.route(BLOGWEBDIR+"/add.html",methods=['POST','GET'])	
 	def add():
 		if not session.get("loged"):
@@ -53,17 +54,22 @@ class webpage:
 					#manageTranslate(str(session["translateFrom"])+".html",languages)
 					print("trasnlate")
 					for file in files:
-						print(file[:-5])
+						print(file[:-5],"for")
 						if file[0].isupper():
+							print(file,"main")
+							mainLangue = file[0].lower()+file[1:-5]
+							print("mainLangue is "+file)
 							content = doHtml(txtp,txtq,txtid,AUTHOR)
-							writeblog(BLOGPATH+name+"/"+file+".html",content)	
+							writeblog(BLOGPATH+name+"/"+file,content)	
 						else:
-							txtp_translated = webTranslate(txtp,session["translateFrom"],language)
-							txtq_translated = webTranslate(txtq,session["translateFrom"],language)
-							content = doHtml(txtp_translated,txtq_translated,txtid,AUTHOR)
-							writeblog(BLOGPATH+name+"/"+language,content)
-							print("trasnlate")
+							transalateTo = file[:-5]
+							print("trasnlate to"+transalateTo)
 					else:
+						txtp_translated = webTranslate(txtp,mainLangue,transalateTo)
+						txtq_translated = webTranslate(txtq,mainLangue,transalateTo)
+						content = doHtml(txtp_translated,txtq_translated,txtid,AUTHOR)
+						writeblog(BLOGPATH+name+"/"+transalateTo+".html",content)
+						print("trasnlate")
 						print("end trasnlate")
 				else:
 					content = doHtml(txtp,txtq,txtid,AUTHOR)
@@ -78,18 +84,20 @@ class webpage:
 		if not session.get("loged"):
 			return "error: you cannot perform this operation unless you are root."
 		else:
+			msg = ""
 			if request.method == "POST":
 				name = request.form["name"]
 				translateTo = request.form["translate_to"]
-				if SUPORTEDLANGUAGES[0] == translateTo:
+				translateFrom = request.form["translate_from"]
+				if SUPORTEDLANGUAGES[0] == translateTo or translateTo == translateFrom:
+					msg = " was create a topic without trasnlate option"+"\nyou can not translate from "+translateTo+" to "+translateFrom
 					writeblog(BLOGPATH+name+".html","")
-					return redirect(BLOGWEBDIR+"config.html")
+					#return redirect(BLOGWEBDIR+"config.html")
 				else:
-					translateFrom = request.form["translate_from"]
 					os.mkdir(BLOGPATH+name)
-					writeblog(BLOGPATH+name+"/"+translateFrom[0].upper()+translateFrom[0:]+".html","")
+					writeblog(BLOGPATH+name+"/"+translateFrom[0].upper()+translateFrom[1:]+".html","")
 					writeblog(BLOGPATH+name+"/"+translateTo+".html","")
-			return render_template("config/createNewTopic.html" ,languages = SUPORTEDLANGUAGES)
+			return render_template("config/createNewTopic.html" ,languages = SUPORTEDLANGUAGES, msg = msg)
 	@app.route(BLOGWEBDIR+"/token.html",methods=['POST','GET'])
 	def token():
 		if not session.get("loged"):
@@ -128,3 +136,9 @@ class webpage:
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)
+	@app.route("/blog/testLangue/english.html")
+	def testLangueenglish():
+		return render_template("blog/testLangue/english.html")
+	@app.route("/blog/testLangue/Spanish.html")
+	def testLangueSpanish():
+		return render_template("blog/testLangue/Spanish.html")
