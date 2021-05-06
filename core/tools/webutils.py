@@ -25,7 +25,7 @@ def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 		initTemplate = "{% extends  'template.html'%}{% block content %}"
 		endTemplate = "{% endblock %}"
 		content = initTemplate+content+replaceTo+endTemplate
-		newContent = readFile(name).replace(replaceTo,content+replaceTo)
+		newContent = readFile(name).replace(replaceTo,content)
 	except:
 		newContent = replaceTo.replace(replaceTo,content+replaceTo)
 	writeTxt(name,newContent,option="w")
@@ -142,14 +142,22 @@ def joinWebpage(direccions,webApp,actualapp,url=""):
 			def site():
 				return webApp
 		return site()
-def addToText(text, add):
-    return add + text
-def filesInFolders(path,tag = ".html"):
+def blogNames(path,tag = ".html"):
 	folderFiles = os.listdir(path)
 	files = []
 	for i in folderFiles:
 		if i[-5:] != tag:
 			name =  [i+"_"+ii for ii in os.listdir(path+i)] 
+			files += name
+		else: 
+			files +=  [i]
+	return files
+def filesInFolders(path,tag = ".html"):
+	folderFiles = os.listdir(path)
+	files = []
+	for i in folderFiles:
+		if i[-5:] != tag:
+			name =  [i+"/"+ii for ii in os.listdir(path+i)] 
 			files += name
 		else: 
 			files +=  [i]
@@ -163,3 +171,8 @@ def blogsNames(path,tag = ".html"):
 		else:
 			names.append(i)
 	return names
+def getPrimaryLanguage(languages):
+	for language in languages:
+		if language[0].isupper():
+			return language
+			break

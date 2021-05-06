@@ -13,14 +13,14 @@
 	</select>
 	<h3>Translate to...</h3>
 	{% for i in languages %}
-	<input type="checkbox" name="translate_to" value="{{ i }}">
+	<input type="radio" name="translate_to" value="{{ i }}">
 	<label for="{{ i }}">{{ i }}</label><br>
 	{% endfor %}
-<h2>Html template (optional)</h2>
+<!--h2>Html template (optional)</h2>
 <textarea rows="5" cols="80" name="template" id="TITLE">
 html code here , in body 
 </textarea>
-<br>
+<br-->
 <input type="submit" name="">
 <br>
 </form>

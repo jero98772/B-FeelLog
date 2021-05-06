@@ -17,4 +17,6 @@
 *** is over writing
 * TODOS
 ** add documentation for login
-** edition mode (?)
+** edition mode (?) no
+** next version suport multilenguajes
+** html templates

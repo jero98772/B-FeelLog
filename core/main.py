@@ -14,9 +14,12 @@ AUTHORFILE = "data/authorfile.txt"
 TOKENPATH = "data/token.txt"
 BLOGFILE = "core/blogs.py"
 INDEX = "/blog.html"
+#LANGUAGETAG = "main_langue_"
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
-BLOGS = filesInFolders(BLOGPATH)
+BLOGS = blogNames(BLOGPATH)
+BLOGSFILES = filesInFolders(BLOGPATH)
+print(BLOGSFILES)
 SUPORTEDLANGUAGES = ["No translate","spanish","english","dutch"]
 #DBCONFIG = "topicsConfig"
 if os.path.isfile(BLOGFILE):
@@ -25,14 +28,14 @@ if os.path.isfile(BLOGFILE):
 		from .blogs import app as appblogs 
 		joinWebpage(BLOGS,appblogs,app,url=BLOGWEBDIR)
 	except:
-		updateBlog(BLOGS,BLOGFILE)
+		updateBlog(BLOGSFILES,BLOGFILE)
 class webpage:
 	app.secret_key = TOKEN
 	print("\n* Configuration token:\n"+TOKEN+"\n","go to :\n\n\tlocalhost:9600"+BLOGWEBDIR+TOKEN+"/\n\nto get acces to configuration , rember your token is\n\n\t"+TOKEN,"\n")
 	@app.route(INDEX,methods=['POST','GET'])
 	def index():
 		session["author"] = AUTHOR
-		updateBlog(BLOGS,BLOGFILE)
+		updateBlog(BLOGSFILES,BLOGFILE)
 		return render_template("index.html", topics = BLOGS, name = AUTHOR )
 	@app.route(BLOGWEBDIR+"/add.html",methods=['POST','GET'])	
 	def add():
@@ -45,21 +48,23 @@ class webpage:
 				txtid = request.form["id"]
 				name = request.form["destiantion"]
 				print("1")
-				if os.path.isdir(BLOGPATH+name):
-					languages = os.listdir(BLOGPATH+name)
-					manageTranslate(str(session["translateFrom"])+".html",languages)
+				if os.path.isdir(BLOGPATH+name):#translate because is dir 
+					files = os.listdir(BLOGPATH+name)
+					#manageTranslate(str(session["translateFrom"])+".html",languages)
 					print("trasnlate")
-					for language in languages:
-						print(language[:-5])
-						txtp_translated = webTranslate(txtp,session["translateFrom"],language)
-						txtq_translated = webTranslate(txtq,session["translateFrom"],language)
-						content = doHtml(txtp_translated,txtq_translated,txtid,AUTHOR)
-						writeblog(BLOGPATH+name+"/"+language,content)
-						print("trasnlate")
+					for file in files:
+						print(file[:-5])
+						if file[0].isupper():
+							content = doHtml(txtp,txtq,txtid,AUTHOR)
+							writeblog(BLOGPATH+name+"/"+file+".html",content)	
+						else:
+							txtp_translated = webTranslate(txtp,session["translateFrom"],language)
+							txtq_translated = webTranslate(txtq,session["translateFrom"],language)
+							content = doHtml(txtp_translated,txtq_translated,txtid,AUTHOR)
+							writeblog(BLOGPATH+name+"/"+language,content)
+							print("trasnlate")
 					else:
 						print("end trasnlate")
-						content = doHtml(txtp,txtq,txtid,AUTHOR)
-						writeblog(BLOGPATH+name+"/"+str(session["translateFrom"])+".html",content)	
 				else:
 					content = doHtml(txtp,txtq,txtid,AUTHOR)
 					writeblog(BLOGPATH+name+".html",content)
@@ -75,15 +80,15 @@ class webpage:
 		else:
 			if request.method == "POST":
 				name = request.form["name"]
-				translateFrom = request.form["translate_from"]
 				translateTo = request.form["translate_to"]
-				session["translateFrom"] = translateFrom
 				if SUPORTEDLANGUAGES[0] == translateTo:
 					writeblog(BLOGPATH+name+".html","")
+					return redirect(BLOGWEBDIR+"config.html")
 				else:
+					translateFrom = request.form["translate_from"]
 					os.mkdir(BLOGPATH+name)
-				writeblog(name,"")
-				return redirect(BLOGWEBDIR+"name.html")
+					writeblog(BLOGPATH+name+"/"+translateFrom[0].upper()+translateFrom[0:]+".html","")
+					writeblog(BLOGPATH+name+"/"+translateTo+".html","")
 			return render_template("config/createNewTopic.html" ,languages = SUPORTEDLANGUAGES)
 	@app.route(BLOGWEBDIR+"/token.html",methods=['POST','GET'])
 	def token():
@@ -119,7 +124,7 @@ class webpage:
 		if request.method == "POST":
 			if request.form["key"] == TOKEN:
 				session["loged"] = True
-				return redirect(BLOGWEBDIR+"config.html")
+				return redirect(BLOGWEBDIR+"author.html")
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)
