@@ -8,12 +8,12 @@ from core.tools.webutils import genTokenFile
 from setuptools import setup, find_packages
 setup(
 	name='B→FeelLog',
-	version='1.0.0',
+	version='1.0.0-Beta',
 	license='GPLv3',
 	author_email='jero98772@protonmail.com',
 	author='jero98772',
-	description='proyect for organize a blog in a better way that write all in html... ',
-	url='https://jero98772.pythonanywhere.com/blog.html',
+	description='free source minimal multilingual blog maker and manager for different blog entries and multiple blog entries , with web interface. in this blog can use images but we looking to keep it minimalism.',
+	url='https://jero98772.pythonanywhere.com/',
 	packages=find_packages(),
     install_requires=['Flask','deep-translator'],
     include_package_data=True,

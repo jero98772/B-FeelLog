@@ -1,0 +1,10 @@
+* runs
+** start withouth error
+** 
+* bugs
+** spacs and crete blogs ,change spaces to _
+** _ bug
+** no translate include < and > 
+* clear
+** DONE prints and coment code 
+** DONE information 

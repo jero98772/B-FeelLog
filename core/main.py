@@ -14,14 +14,14 @@ AUTHORFILE = "data/authorfile.txt"
 TOKENPATH = "data/token.txt"
 BLOGFILE = "core/blogs.py"
 INDEX = "/blog.html"
-#LANGUAGETAG = "main_langue_"
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
-BLOGS = blogNames(BLOGPATH)
+try:
+	BLOGS = blogNames(BLOGPATH)
+except:
+	os.mkdir(BLOGPATH)
 BLOGSFILES = filesInFolders(BLOGPATH)
-print(BLOGSFILES)
 SUPORTEDLANGUAGES = ["No translate","spanish","english","dutch"]
-#DBCONFIG = "topicsConfig"
 if os.path.isfile(BLOGFILE):
 	try:
 		from .blogs import blogs 
@@ -36,7 +36,6 @@ class webpage:
 	def index():
 		session["author"] = AUTHOR
 		updateBlog(BLOGSFILES,BLOGFILE)
-		#joinWebpage(BLOGS,appblogs,app,url=BLOGWEBDIR)
 		return render_template("index.html", topics = BLOGS,topicsaddres =BLOGSFILES, name = AUTHOR )
 	@app.route(BLOGWEBDIR+"/add.html",methods=['POST','GET'])	
 	def add():
@@ -48,36 +47,23 @@ class webpage:
 				txtq = request.form["txtq"]
 				txtid = request.form["id"]
 				name = request.form["destiantion"]
-				print("1")
 				if os.path.isdir(BLOGPATH+name):#translate because is dir 
 					files = os.listdir(BLOGPATH+name)
-					#manageTranslate(str(session["translateFrom"])+".html",languages)
-					print("trasnlate")
 					for file in files:
-						print(file[:-5],"for")
 						if file[0].isupper():
-							print(file,"main")
 							mainLangue = file[0].lower()+file[1:-5]
-							print("mainLangue is "+file)
 							content = doHtml(txtp,txtq,txtid,AUTHOR)
 							writeblog(BLOGPATH+name+"/"+file,content)	
 						else:
 							transalateTo = file[:-5]
-							print("trasnlate to"+transalateTo)
 					else:
 						txtp_translated = webTranslate(txtp,mainLangue,transalateTo)
 						txtq_translated = webTranslate(txtq,mainLangue,transalateTo)
 						content = doHtml(txtp_translated,txtq_translated,txtid,AUTHOR)
 						writeblog(BLOGPATH+name+"/"+transalateTo+".html",content)
-						print("trasnlate")
-						print("end trasnlate")
 				else:
 					content = doHtml(txtp,txtq,txtid,AUTHOR)
 					writeblog(BLOGPATH+name+".html",content)
-					print("out")
-				#os.listdir(name)
-				#acceder a los directiros 
-				#guradar 
 			return render_template("config/addData.html",blogs = blogsNames(BLOGPATH))
 	@app.route(BLOGWEBDIR+"/createNewTopic.html",methods=['POST','GET'])	
 	def CreateNewTopic():
@@ -87,12 +73,14 @@ class webpage:
 			msg = ""
 			if request.method == "POST":
 				name = request.form["name"]
-				translateTo = request.form["translate_to"]
+				try :
+					translateTo = request.form["translate_to"]
+				except:
+					translateTo = SUPORTEDLANGUAGES[0]
 				translateFrom = request.form["translate_from"]
 				if SUPORTEDLANGUAGES[0] == translateTo or translateTo == translateFrom:
 					msg = " was create a topic without trasnlate option"+"\nyou can not translate from "+translateTo+" to "+translateFrom
 					writeblog(BLOGPATH+name+".html","")
-					#return redirect(BLOGWEBDIR+"config.html")
 				else:
 					os.mkdir(BLOGPATH+name)
 					writeblog(BLOGPATH+name+"/"+translateFrom[0].upper()+translateFrom[1:]+".html","")
@@ -105,11 +93,14 @@ class webpage:
 		else:
 			if request.method == "POST":
 				if request.form['new Token'] == 'new Token':
-					writeTxt(TOKENPATH,genToken(),"w")
+					newToken = genToken()
+					writeTxt(TOKENPATH,newToken,"w")
 					session["loged"] = False
+					return "you new Token is :\n\t"+newToken
 				elif request.form['custom Token'] == 'custom Token':
 					writeTxt(TOKENPATH,request.form['customTokenValue'],"w")
 					session["loged"] = False
+					return "remember save your token"
 				return redirect(INDEX)
 			return render_template("config/token.html")
 	@app.route(BLOGWEBDIR+"/author.html",methods=['POST','GET'])
@@ -132,13 +123,7 @@ class webpage:
 		if request.method == "POST":
 			if request.form["key"] == TOKEN:
 				session["loged"] = True
-				return redirect(BLOGWEBDIR+"author.html")
+				return redirect(BLOGWEBDIR+"token.html")
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)
-	@app.route("/blog/testLangue/english.html")
-	def testLangueenglish():
-		return render_template("blog/testLangue/english.html")
-	@app.route("/blog/testLangue/Spanish.html")
-	def testLangueSpanish():
-		return render_template("blog/testLangue/Spanish.html")

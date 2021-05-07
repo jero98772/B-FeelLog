@@ -14,15 +14,7 @@ def writeTxt(name,content,option = "a"):
 		file.write(content)
 		file.close()
 def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
-	"""
-	content = content + "\n<!--addition-->"
-	with open(name, option) as file:
-		file.readLines()#.replace("<!--addition-->",content)
-		file.write()
-		file.close()
-	"""
 	if content == "":
-		print("if")
 		initTemplate = "{% extends  'template.html'%}{% block content %}"
 		endTemplate = "{% endblock %}"
 		content = initTemplate+content+replaceTo+endTemplate
@@ -48,15 +40,11 @@ def webTranslate(txt,writeIn,translateTo):
 	from deep_translator import MyMemoryTranslator 
 	translatedTxt = MyMemoryTranslator(source=writeIn, target=translateTo).translate(txt)
 	return translatedTxt
-#txt = "mi amigo fue la casa del perro, cuando descubrio que una serpiente se lo comio";print(webTranslate(txt,"es","en"))
-#txt to test
 def manageTranslate(writeIn,translateTo):
 	try:
 		translateTo[translateTo.index(writeIn)] = ""
 	except:
-		pass
-	#if writeIn in translateTo: 
-	#file with en 
+		pass 
 def doHtmlInit(name,content):
 	return f"""
 <!DOCTYPE html>

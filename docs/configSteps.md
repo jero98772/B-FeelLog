@@ -19,4 +19,4 @@ topics is entries in your blog
 		blog/adresstopics
 1. create new topic in :
 
-   	      http://localhost:9600/blog/defaulttoken/createNewTopic.html
+		http://localhost:9600/blog/defaulttoken/createNewTopic.html
