@@ -1,5 +1,5 @@
 # FAQs 
-**Question:** whe n i run get this error. 
+**Question:** i get this error. 
 
 	Traceback (most recent call last):
 	  File "/tmp/B-FeelLog/B-FeelLog.py", line 7, in <module>
@@ -43,5 +43,14 @@ and you need give you token in the input.
 **Question:** how do I create my first entry?
 **Answer:** go to Create topic in confgurations ,[here](http://localhost:9600/blog/createNewTopic.html)
 
-**Question:** 
-**Answer:** 
+**Question:** i can add images or videos ? or the text colour or manipulate the text to add boldness, underline it ... ??
+**Answer:** yes , can do with html . you can do a lot more . this proyect try to continue the essence of html.
+
+**Question:** how can I customise the page ?
+**Answer:** from the html source code , you can do all you like , this is free software.
+
+**Question:** why have licence and it is open source? 
+**Answer:** because the project belongs to everyone and no one, the person behind it often suffers because of their projects.
+
+**Question:** how can I integrate it into my website?
+**Answer:** adapting ,the variables of the main.py code allow a better adaptation on web address , if you web page run in python with flask can use the function joinWebpage() on webutils ... or with iframe 

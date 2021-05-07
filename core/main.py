@@ -21,7 +21,7 @@ try:
 except:
 	os.mkdir(BLOGPATH)
 BLOGSFILES = filesInFolders(BLOGPATH)
-SUPORTEDLANGUAGES = ["No translate","spanish","english","dutch"]
+SUPORTEDLANGUAGES = ["No translate","spanish","english","german"]
 if os.path.isfile(BLOGFILE):
 	try:
 		from .blogs import blogs 
@@ -36,7 +36,7 @@ class webpage:
 	def index():
 		session["author"] = AUTHOR
 		updateBlog(BLOGSFILES,BLOGFILE)
-		return render_template("index.html", topics = BLOGS,topicsaddres =BLOGSFILES, name = AUTHOR )
+		return render_template("index.html", topics = BLOGS, name = AUTHOR )
 	@app.route(BLOGWEBDIR+"/add.html",methods=['POST','GET'])	
 	def add():
 		if not session.get("loged"):
@@ -72,7 +72,7 @@ class webpage:
 		else:
 			msg = ""
 			if request.method == "POST":
-				name = request.form["name"]
+				name = str(request.form["name"]).replace(" ","_")
 				try :
 					translateTo = request.form["translate_to"]
 				except:
@@ -92,15 +92,15 @@ class webpage:
 			return "error: you cannot perform this operation unless you are root.\n please get loged with your token!!"
 		else:
 			if request.method == "POST":
-				if request.form['new Token'] == 'new Token':
+				if request.form.get('new Token'):
 					newToken = genToken()
 					writeTxt(TOKENPATH,newToken,"w")
 					session["loged"] = False
 					return "you new Token is :\n\t"+newToken
-				elif request.form['custom Token'] == 'custom Token':
+				if request.form.get('custom Token'):
 					writeTxt(TOKENPATH,request.form['customTokenValue'],"w")
 					session["loged"] = False
-					return "remember save your token"
+					return "remember, save your token"
 				return redirect(INDEX)
 			return render_template("config/token.html")
 	@app.route(BLOGWEBDIR+"/author.html",methods=['POST','GET'])
@@ -109,9 +109,8 @@ class webpage:
 			return "error: you cannot perform this operation unless you are root.\n please get loged with your token!!"
 		else:
 			if request.method == "POST":
-				if request.form['who'] == 'who':
-					author = request.form['author']
-					writeTxt(AUTHORFILE,author,"w")
+				author = request.form['author']
+				writeTxt(AUTHORFILE,author,"w")
 				return redirect(INDEX)
 			return render_template("config/author.html",defautlAuthor = AUTHOR)
 	@app.route(BLOGWEBDIR+"/config.html",methods=['POST','GET'])

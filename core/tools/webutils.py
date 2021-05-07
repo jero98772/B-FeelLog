@@ -136,7 +136,7 @@ def blogNames(path,tag = ".html"):
 	files = []
 	for i in folderFiles:
 		if i[-5:] != tag:
-			name =  [i+"_"+ii for ii in os.listdir(path+i)] 
+			name =  [i+"__"+ii for ii in os.listdir(path+i)] 
 			files += name
 		else: 
 			files +=  [i]

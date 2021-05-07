@@ -1,9 +1,15 @@
 {% extends  'template.html'%}
 {% block content %}
 {% if session['loged'] %}
+<center>
+<h1>
+	Create Topic
+</h1>
+</center>
+<hr>
 <form method="post" >
 <h2>Topic name*</h2>
-<input type="text" name="name">
+<input type="text" name="name" required>
 <h2>Translate (optional)</h2>
 <h3>Write in...</h3>
 	<select name="translate_from">
