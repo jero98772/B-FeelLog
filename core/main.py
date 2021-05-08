@@ -6,6 +6,7 @@ B→FeelLog - 2021 - by jero98772
 """
 from flask import Flask, render_template ,request,session,redirect
 from .tools.webutils import *
+import re
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 BLOGWEBDIR = "/blog/"
@@ -14,6 +15,7 @@ AUTHORFILE = "data/authorfile.txt"
 TOKENPATH = "data/token.txt"
 BLOGFILE = "core/blogs.py"
 INDEX = "/blog.html"
+SYMBOLS = "-._/"
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
 try:
@@ -72,14 +74,21 @@ class webpage:
 		else:
 			msg = ""
 			if request.method == "POST":
-				name = str(request.form["name"]).replace(" ","_")
+				name = request.form["name"]
+				try:
+					name =  re.sub("["+SYMBOLS+"]", " ", name)
+				except:
+					msg = "please avoid using symbols"
+				name = name.replace(" ","_")
 				try :
 					translateTo = request.form["translate_to"]
 				except:
 					translateTo = SUPORTEDLANGUAGES[0]
 				translateFrom = request.form["translate_from"]
+				if translateTo == translateFrom:
+					msg = "you can not translate from "+translateTo+" to "+translateFrom
 				if SUPORTEDLANGUAGES[0] == translateTo or translateTo == translateFrom:
-					msg = " was create a topic without trasnlate option"+"\nyou can not translate from "+translateTo+" to "+translateFrom
+					msg = " was create a topic without trasnlate option"
 					writeblog(BLOGPATH+name+".html","")
 				else:
 					os.mkdir(BLOGPATH+name)

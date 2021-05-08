@@ -6,6 +6,7 @@
 ** DONE _ bug
 ** no translate include < and > 
 ** blogs no show name 
+** DONE simbols 
 * clear
 ** DONE prints and coment code 
 ** DONE information 
@@ -15,3 +16,10 @@
 *** DONE gen token
 *** DONE create token
 ** DONE localhost:9600/blog/author.html
+* langues
+** DONE es ->ge
+** DONE en ->ge
+** ge ->es
+** ge ->en
+** es -> en
+** en -> es

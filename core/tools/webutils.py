@@ -104,8 +104,8 @@ def genTokenFile(filename):
 			pass
 	except:
 		writeTxt(filename,genToken())
-def initTopic(name):
-	os.mkdir("../templates/")
+def manyblogs(path):
+	return len(os.listdir(path))
 def blogsview(path,app):
 	blogpath = path[path.index("templates/")+len("templates/"):] 
 	blogs = os.listdir(path)

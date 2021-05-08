@@ -3,9 +3,7 @@
 
 free source minimal multilingual blog maker and manager for different blog entries and multiple blog entries , with web interface. in this blog can use images but we looking to keep it minimalism.
 
-now is multilingual
-
-bilingual with support in 
+now is bilingual with support in 
 - Spanish 
 - English
 - German
@@ -40,3 +38,9 @@ the initial token is:
 ### Screenshots
 ![main](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-06-185257_770x321_scrot.png)
 ![flex blog](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-06-165512_752x551_scrot.png)
+
+### Contribute:
+
+**donations:**
+	
+	-Bitcoin: bc1qgdnp08qr3mj0hanrs3rhnmqay35u4a9kfl0pwh
