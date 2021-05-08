@@ -1,22 +1,5 @@
-* translate and ortografic correction , like this
-** entrada in configuration steps
-* interface
-** [createnewtopic.html] html code in textarea
-* program
-** new topic
-*** CreateNewTopic
-**** save config
-***** topic Name
-***** translate
-***** template
-**** call configuration
-**** DONE better web navigation
-*** DONE handle error in http://localhost:9600/blog/defaulttoken/config.html when save data , later dont show error
-* tests
-** add data
-*** is over writing
 * TODOS
-** add documentation for login
-** edition mode (?) no
-** next version suport multilenguajes
+** delete file  
+** reset config (know as factory reset)
+** next version suport more lenguajes
 ** html templates

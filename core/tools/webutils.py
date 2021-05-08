@@ -20,7 +20,7 @@ def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 		content = initTemplate+content+replaceTo+endTemplate
 		newContent =  content 
 	else:
-		newContent = readFile(name).replace(replaceTo,content)
+		newContent = readFile(name).replace(replaceTo,content+replaceTo)
 	writeTxt(name,newContent,option="w")
 def hashStrHex(password):
 	password = str(password)

@@ -15,7 +15,6 @@ AUTHORFILE = "data/authorfile.txt"
 TOKENPATH = "data/token.txt"
 BLOGFILE = "core/blogs.py"
 INDEX = "/blog.html"
-SYMBOLS = "-._/"
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
 try:
@@ -74,12 +73,7 @@ class webpage:
 		else:
 			msg = ""
 			if request.method == "POST":
-				name = request.form["name"]
-				try:
-					name =  re.sub("["+SYMBOLS+"]", " ", name)
-				except:
-					msg = "please avoid using symbols"
-				name = name.replace(" ","_")
+				name = str(request.form["name"]).replace(" ","_")
 				try :
 					translateTo = request.form["translate_to"]
 				except:
