@@ -4,8 +4,8 @@
 * bugs
 ** DONE spacs and crete blogs ,change spaces to _
 ** DONE _ bug
-** no translate include < and > 
-** blogs no show name , can update overwriting file
+** DONE no translate include < and > 
+** DONE blogs no show name , can update overwriting file
 ** DONE simbols 
 * clear
 ** DONE prints and coment code 

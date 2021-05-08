@@ -10,6 +10,7 @@ import re
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 BLOGWEBDIR = "/blog/"
+TEMPLATE = "core/templates/template.html"
 BLOGPATH = "core/templates/blog/"
 AUTHORFILE = "data/authorfile.txt"
 TOKENPATH = "data/token.txt"
@@ -112,8 +113,9 @@ class webpage:
 			return "error: you cannot perform this operation unless you are root.\n please get loged with your token!!"
 		else:
 			if request.method == "POST":
-				author = request.form['author']
-				writeTxt(AUTHORFILE,author,"w")
+				newAuthor = request.form['author']
+				upadateAuthor(AUTHOR,newAuthor,TEMPLATE)
+				writeTxt(AUTHORFILE,newAuthor,"w")
 				return redirect(INDEX)
 			return render_template("config/author.html",defautlAuthor = AUTHOR)
 	@app.route(BLOGWEBDIR+"/config.html",methods=['POST','GET'])

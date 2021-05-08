@@ -1,5 +1,8 @@
 * TODOS
-** delete file  
-** reset config (know as factory reset)
-** next version suport more lenguajes
-** html templates
+** next relase
+*** delete file  
+*** launch binary or executable 
+** next version
+*** suport more lenguajes
+*** reset config (know as factory reset)
+*** templates

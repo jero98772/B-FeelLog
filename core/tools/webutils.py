@@ -26,6 +26,9 @@ def hashStrHex(password):
 	password = str(password)
 	hashPassowrd = str(hashlib.sha256(password.encode('utf-8')).hexdigest())
 	return hashPassowrd
+def upadateAuthor(author,newAuthor,path ):
+	newContent = readFile(path).replace(author,newAuthor)
+	writeTxt(path,newContent,option="w")
 def webTranslate(txt,writeIn,translateTo):
 	"""
 	webTranslate(txt,writeIn,translateTo )

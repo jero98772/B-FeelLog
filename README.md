@@ -9,6 +9,7 @@ now is bilingual with support in
 - German
 
 **more information** [here](https://github.com/jero98772/B-FeelLog/blob/main/docs/FAQs.md)
+**video tutorial** [here](https://www.youtube.com/watch?v=CJTvvKGGbLQ)
 
 please report some issues or if you need help 
 ### Made for:
