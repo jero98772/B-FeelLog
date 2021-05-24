@@ -6,13 +6,19 @@ B→FeelLog - 2021 - by jero98772
 """
 import time
 import base64
-import hashlib
+from hashlib import sha256
 import os
 def writeTxt(name,content,option = "a"):
 	content = str(content)
 	with open(name, option) as file:
 		file.write(content)
 		file.close()
+def changeThis(name,old,new,option = "ab+",replaceTo="<!--this-->"):
+	oldString = replaceTo+old+replaceTo
+	newString = replaceTo+new+replaceTo
+	newContent = readFile(name).replace(oldString,newString)
+	#add integrate a main.py
+	writeTxt(name,newContent,option="w")
 def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 	if content == "":
 		initTemplate = "{% extends  'template.html'%}{% block content %}"
@@ -24,7 +30,7 @@ def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 	writeTxt(name,newContent,option="w")
 def hashStrHex(password):
 	password = str(password)
-	hashPassowrd = str(hashlib.sha256(password.encode('utf-8')).hexdigest())
+	hashPassowrd = str(sha256(password.encode('utf-8')).hexdigest())
 	return hashPassowrd
 def upadateAuthor(author,newAuthor,path ):
 	newContent = readFile(path).replace(author,newAuthor)
@@ -40,8 +46,8 @@ def webTranslate(txt,writeIn,translateTo):
 	es -> spanish 
 	...
 	"""
-	from deep_translator import MyMemoryTranslator 
-	translatedTxt = MyMemoryTranslator(source=writeIn, target=translateTo).translate(txt)
+	from deep_translator import GoogleTranslator 
+	translatedTxt = GoogleTranslator(source=writeIn, target=translateTo).translate(txt)
 	return translatedTxt
 def manageTranslate(writeIn,translateTo):
 	try:

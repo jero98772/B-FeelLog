@@ -1,8 +1,18 @@
 * TODOS
 ** next relase
 *** delete file  
-*** launch binary or executable 
-** next version
 *** suport more lenguajes
+**** DONE euskera
+**** DONE russian
+**** DONE italian
+*** launch binary or executable
+*** change use , can be wiki , blog ...
 *** reset config (know as factory reset)
+*** better library optimisations
+** next version
 *** templates
+*** edit input
+*** multiple B-FeelLog in one insatce ,a wiki ,blog and more running 1 one page ,like wiki/ ,blog/ more/
+*** more big frames for write text
+** next relase 
+*** interface in that langues

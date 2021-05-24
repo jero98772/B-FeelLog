@@ -7,8 +7,12 @@ now is bilingual with support in
 - Spanish 
 - English
 - German
+- Basque
+- Italian
+- Russian
 
 **more information** [here](https://github.com/jero98772/B-FeelLog/blob/main/docs/FAQs.md)
+
 **video tutorial** [here](https://www.youtube.com/watch?v=CJTvvKGGbLQ)
 
 please report some issues or if you need help 
@@ -32,8 +36,8 @@ run install :
 
 ### Usage 
 
-the app run in [localhost:9600](http://localhost:9600/blog.html)
-remember you need authenticate in [localhost:9600/blog/< TOKEN >/](localhost:9600/blog/defaulttoken/)
+the app run in [localhost:9600](http://localhost:9600/this.html)
+remember you need authenticate in [localhost:9600/blog/< TOKEN >/](localhost:9600/this/defaulttoken/)
 the initial token is:
 	
 	defaulttoken

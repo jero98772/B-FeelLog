@@ -1,0 +1,26 @@
+{% extends  'template.html'%}
+{% block content %}
+{% if session['loged'] %}
+<center>
+<h1>Organize</h1>
+</center>
+<hr>
+<form method="post" >
+<h2>Edit</h2>
+<br>
+	{% for i in topics%}
+		{% set address = i | replace("__","/") %}
+		<a href="{{url}}{{ address }}">Edit {{ i }}</a>
+	{% endfor %}
+<br>
+<h2>Delete</h2>
+<!--input type="text" name="destiantion" required-->
+<input type="submit" value="submit" required>
+<br>
+</form>
+{% else %}
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
+{% endblock %}

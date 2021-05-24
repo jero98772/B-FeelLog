@@ -13,9 +13,3 @@ class blogs():
 	@app.route("/blog/test_euskera/Spanish.html")
 	def test_euskeraSpanish():
 		return render_template("blog/test_euskera/Spanish.html")
-	@app.route("/blog/carros/english.html")
-	def carrosenglish():
-		return render_template("blog/carros/english.html")
-	@app.route("/blog/carros/Spanish.html")
-	def carrosSpanish():
-		return render_template("blog/carros/Spanish.html")
