@@ -1,0 +1,33 @@
+{% extends  'template.html'%}
+{% block content %}
+{% if session['loged'] %}
+<center>
+<h1>file manage </h1>
+<h2>edit and delete</h2>	
+</center>
+<form method="post">
+    <table>
+        <tr>
+            <th>name</th>
+            <th>langue</th>
+            <th>delete</th>
+            <th>edit</th>
+        </tr>
+        {% for i in blogs %}
+        <tr>
+            <td>{{ i }}</td>
+            <td><!--array _ to end--></td>
+            <td><a href="/edit">edit</a></td>
+            <td><input type="checkbox" name="edit" value="{{ i }}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit">
+</form>
+{{ msg }}
+{% else %}
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
+{% endblock %}

@@ -174,3 +174,26 @@ def getPrimaryLanguage(languages):
 		if language[0].isupper():
 			return language
 			break
+def clearName(txt,exludeChars,notavailablenames,limit=0,errorMsg = ["the name have some exlude characters , plese only use numeric and upper or lower case letters","the name exlucde the number of characters, limit is: "]):
+	if txt in notavailablenames:
+		msg = errorMsg[0]
+		okName = False
+	if exludeChars != "":
+		for i in txt:
+			if i in exludeChars:
+				msg = errorMsg[0]
+				okName = False
+				break
+			else: 
+				msg = ""
+				okName = True	
+	if len(txt) > limit :
+		okName = False
+		msg = errorMsg[1]+str(limit)+" of characters"
+	return okName ,msg		
+def changeName(txt):
+	newname = ""
+	if txt[-1:] == " ":
+		newname = txt[:-1]
+	newname.replace(" ","_")
+	return newname

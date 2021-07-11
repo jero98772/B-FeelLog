@@ -54,3 +54,8 @@ and you need give you token in the input.
 
 **Question:** how can I integrate it into my website?
 **Answer:** adapting ,the variables of the main.py code allow a better adaptation on web address , if you web page run in python with flask can use the function joinWebpage() on webutils ... or with iframe 
+
+**Question:** i dont can end the name with characters ¿what happen?
+**Answer:** the name of blog is the same name of file , in the operating system some characters are excluded, in B-FeelLog can create file names with  :
+
+	0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz

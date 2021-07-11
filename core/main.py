@@ -8,6 +8,7 @@ from flask import Flask, render_template ,request,session,redirect
 from .tools.webutils import *
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+EXCLUDEDCHARACTER = "#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~"
 BLOGWEBDIR = "/blog/"
 TEMPLATE = "core/templates/template.html"
 BLOGPATH = "core/templates/blog/"
@@ -81,7 +82,10 @@ class webpage:
 		else:
 			msg = ""
 			if request.method == "POST":
-				name = str(request.form["name"]).replace(" ","_")
+				name = str(request.form["name"])
+				nameIsOk ,errormsg = clearName(name,EXCLUDEDCHARACTER,BLOGS)
+				if nameIsOk:
+					name = changeName(name)
 				try :
 					translateTo = request.form["translate_to"]
 				except:
@@ -147,11 +151,13 @@ class webpage:
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)
-	#@app.route(BLOGWEBDIR+"/editMenu.html")
-	#def editMenu():
-		#return render_template("config/editMenu.html",webpages=BLOGS)
-	@app.route(BLOGWEBDIR+"/delete.html", methods = ['GET','POST'])
-	def delete():
+	@app.route(BLOGWEBDIR+TOKEN+"manageFiles.html",methods = ["POST","GET"])
+	def manageFiles():
+		msg = ""
 		if request.method == "POST":
-			= request.form[""]
-		return render_template("config/delete.html",topics = BLOGS)
+			deletechecks = request.form.getlist("delete")
+			editchecks = request.form.getlist("edit")
+			#delete f 
+			deletemsg = str(deletechecks)[2:-2]
+			msg =  "file removed are :"+deletemsg+"\n"
+		return render_template("config/fileManageMenu.html",blogs = BLOGS,msg = msg)
