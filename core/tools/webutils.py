@@ -201,3 +201,10 @@ def deleteFiles(path,selectedFiles):
 	for i in selectedFiles:
 		os.remove(path+file)
 	#if 2 langues is name/lange.html , if 1 lange 1 name.html
+def deleteAndMove(deletename,path,names):
+	#delte
+	#os.remove(path+file)
+	#move
+	#if "__" in name:
+
+#how i know is 2 files? slice str and before is folder ...

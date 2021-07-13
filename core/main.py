@@ -164,7 +164,7 @@ class webpage:
 			msg =  "file removed are :"+deletemsg+"\n"
 		return render_template("config/fileManageMenu.html",blogs = BLOGS,msg = msg)
 	"""
-	@app.route(BLOGWEBDIR+TOKEN+"deleteFiles.html",methods = ["POST","GET"])
+	@app.route(BLOGWEBDIR+"/deleteFiles.html",methods = ["POST","GET"])
 	def deleteFiles():		
 		msg = ""
 		if request.method == "POST":
