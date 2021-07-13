@@ -197,3 +197,7 @@ def changeName(txt):
 		newname = txt[:-1]
 	newname.replace(" ","_")
 	return newname
+def deleteFiles(path,selectedFiles):
+	for i in selectedFiles:
+		os.remove(path+file)
+	#if 2 langues is name/lange.html , if 1 lange 1 name.html

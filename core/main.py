@@ -151,13 +151,25 @@ class webpage:
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)
+	"""
 	@app.route(BLOGWEBDIR+TOKEN+"manageFiles.html",methods = ["POST","GET"])
 	def manageFiles():
+
 		msg = ""
 		if request.method == "POST":
 			deletechecks = request.form.getlist("delete")
-			editchecks = request.form.getlist("edit")
+			#editchecks = request.form.getlist("edit")
 			#delete f 
 			deletemsg = str(deletechecks)[2:-2]
 			msg =  "file removed are :"+deletemsg+"\n"
 		return render_template("config/fileManageMenu.html",blogs = BLOGS,msg = msg)
+	"""
+	@app.route(BLOGWEBDIR+TOKEN+"deleteFiles.html",methods = ["POST","GET"])
+	def deleteFiles():		
+		msg = ""
+		if request.method == "POST":
+			deletechecks = request.form.getlist("delete")
+			#delete f 
+			deletemsg = str(deletechecks)[2:-2]
+			msg =  "file removed are :"+deletemsg
+		return render_template("config/deleteFiles.html",blogs = BLOGS,msg = msg)

@@ -9,16 +9,12 @@
     <table>
         <tr>
             <th>name</th>
-            <th>langue</th>
             <th>delete</th>
-            <th>edit</th>
         </tr>
         {% for i in blogs %}
         <tr>
             <td>{{ i }}</td>
-            <td><!--array _ to end--></td>
-            <td><a href="/edit">edit</a></td>
-            <td><input type="checkbox" name="edit" value="{{ i }}"></td>
+            <td><input type="checkbox" name="delete" value="{{ i }}"></td>
         </tr>
         {% endfor %}
     </table>
