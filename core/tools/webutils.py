@@ -200,11 +200,20 @@ def changeName(txt):
 def deleteFiles(path,selectedFiles):
 	for i in selectedFiles:
 		os.remove(path+file)
+def BilingueName2path(names,replacechar = "__"):
+	for i in range(len(names)):
+		names[i] = names[i].replace("__","/")
+def move(folderNames):
+	if len(os.listdir(path)):
+		#true , move dir
 	#if 2 langues is name/lange.html , if 1 lange 1 name.html
 def deleteAndMove(deletename,path,names):
-	#delte
-	#os.remove(path+file)
+	BilingueName2path(names)
+	deleteFiles(path,deletename)
+#	if <name>[:langue] 
+
 	#move
 	#if "__" in name:
 
 #how i know is 2 files? slice str and before is folder ...
+

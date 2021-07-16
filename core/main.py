@@ -169,7 +169,7 @@ class webpage:
 		msg = ""
 		if request.method == "POST":
 			deletechecks = request.form.getlist("delete")
-			#delete f 
+			#delete f  deleteAndMove(deletename,BLOGPATH,BLOGS) 
 			deletemsg = str(deletechecks)[2:-2]
 			msg =  "file removed are :"+deletemsg
 		return render_template("config/deleteFiles.html",blogs = BLOGS,msg = msg)
