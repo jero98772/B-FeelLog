@@ -42,10 +42,3 @@ the initial token is:
 ![main](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-06-185257_770x321_scrot.png)
 ![flex blog](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-06-165512_752x551_scrot.png)
 ![translation](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-07-203242_822x595_scrot.png)
-
-
-### Contribute:
-
-**donations:**
-	
-	-Bitcoin: bc1qgdnp08qr3mj0hanrs3rhnmqay35u4a9kfl0pwh
