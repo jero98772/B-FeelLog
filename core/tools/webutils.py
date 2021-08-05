@@ -191,7 +191,7 @@ def clearName(txt,exludeChars,notavailablenames,limit=0,errorMsg = ["the name ha
 		okName = False
 		msg = errorMsg[1]+str(limit)+" of characters"
 	return okName ,msg
-def createFile(name):
+def createFile(name,content=""):
 	content =str(content)
 	with open(name, 'x') as file:
 		file.write(" ")
@@ -209,25 +209,23 @@ def BilingueName2path(names,replacechar = "__"):
 	for i in range(len(names)):
 		names[i] = names[i].replace(replacechar,"/")
 def moveFiles(path,name,replacechar = "__"):
-	directoriName = name.replace(replacechar,"/")
-	fileName =  name[:name.index(replacechar)]+".html"
-	numOfFiles = len(os.listdir(directoriName))
-	if numOfFiles:
-		createFile(path+fileName)
-		#replace content
-	elif numOfFiles > 2:
+	#fileName = name[name.index(replacechar):]#spa
+	topicName = name[:name.index(replacechar)]
+	folderFile =  path+topicName+"/"
+	numOfFiles = len(os.listdir(folderFile))
+	if numOfFiles:#delete 1 file
+		createFile(folderFile[:-1]+".html", readFile(folderFile+topicName))
+	elif numOfFiles > 1:
 		 pass
-		#true , move dir
-	#if 2 langues is name/lange.html , if 1 lange 1 name.html
 def deleteAndMove(deletename,path,names):
-	print(names,deletename,path)
+	#print(names,deletename,path)
 	for file in deletename:
-		print("remove:"+path+file.replace("__","/"))#os.remove(path+file)
+		#print("remove:"+path+file.replace("__","/"))#os.remove(path+file)
 		#print("move: "+file)
 		moveFiles(path,file)
 	#deleteFiles(path,deletename)
 	BilingueName2path(names)
-	print(names,deletename)
+	#print(names,deletename)
 #	if <name>[:langue] 
 
 	#move
