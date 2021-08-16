@@ -205,31 +205,22 @@ def changeName(txt):
 def deleteFiles(path,selectedFiles):
 	for i in selectedFiles:
 		os.remove(path+file)
-def BilingueName2path(names,replacechar = "__"):
-	for i in range(len(names)):
-		names[i] = names[i].replace(replacechar,"/")
 def moveFiles(path,name,replacechar = "__"):
-	#fileName = name[name.index(replacechar):]#spa
 	topicName = name[:name.index(replacechar)]
 	folderFile =  path+topicName+"/"
 	numOfFiles = len(os.listdir(folderFile))
-	if numOfFiles:#delete 1 file
+	print(numOfFiles)
+	if numOfFiles == 1:
 		createFile(folderFile[:-1]+".html", readFile(folderFile+topicName))
-	elif numOfFiles > 1:
-		 pass
-def deleteAndMove(deletename,path,names):
-	#print(names,deletename,path)
+def deleteAndMove(deletename,path,names,replacechar="__"):
 	for file in deletename:
-		#print("remove:"+path+file.replace("__","/"))#os.remove(path+file)
-		#print("move: "+file)
-		moveFiles(path,file)
-	#deleteFiles(path,deletename)
-	BilingueName2path(names)
-	#print(names,deletename)
-#	if <name>[:langue] 
-
-	#move
-	#if "__" in name:
-
-#how i know is 2 files? slice str and before is folder ...
-
+		print(path,file)
+		if "__" in file:
+			fileName = file.replace("__","/")
+			dirName = file[:file.index("__")]
+			numOfFiles = len(os.listdir(path+dirName+"/"))
+			print(numOfFiles)
+			if numOfFiles == 2:os.remove(path+fileName)
+			if numOfFiles == 1:os.remove(path+fileName);os.rmdir(path+dirName)			
+		else:
+			os.remove(path+file)

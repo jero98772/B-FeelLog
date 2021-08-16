@@ -44,9 +44,6 @@ class webpage:
 	@app.route(BLOGWEBDIR+"/config.html")
 	def config():
 		return render_template("config/configmenu.html")
-	#@app.route(BLOGWEBDIR+"/organize.html")
-	#def organize():
-	#	return render_template("config/organize.html")
 	@app.route(BLOGWEBDIR+"/add.html",methods=['POST','GET'])	
 	def add():
 		if not session.get("loged"):
@@ -151,19 +148,6 @@ class webpage:
 			else:
 				msg = "Invalid token"
 		return render_template("config/addkey.html",error=msg)
-	"""
-	@app.route(BLOGWEBDIR+TOKEN+"manageFiles.html",methods = ["POST","GET"])
-	def manageFiles():
-
-		msg = ""
-		if request.method == "POST":
-			deletechecks = request.form.getlist("delete")
-			#editchecks = request.form.getlist("edit")
-			#delete f 
-			deletemsg = str(deletechecks)[2:-2]
-			msg =  "file removed are :"+deletemsg+"\n"
-		return render_template("config/fileManageMenu.html",blogs = BLOGS,msg = msg)
-	"""
 	@app.route(BLOGWEBDIR+"/deleteFiles.html",methods = ["POST","GET"])
 	def deleteFiles():		
 		msg = ""

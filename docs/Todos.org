@@ -1,6 +1,6 @@
 * TODOS
 ** next relase
-*** delete file  
+*** DONE delete file  
 *** suport more lenguajes
 **** DONE euskera
 **** DONE russian
@@ -8,6 +8,7 @@
 *** launch binary or executable
 *** change use , can be wiki , blog ...
 *** reset config (know as factory reset)
+*** reload 
 *** better library optimisations
 ** next version
 *** templates
