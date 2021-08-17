@@ -13,7 +13,7 @@
 		{% for i in topics %}
 			{% set address = i | replace("__","/") %}
 			<br>
-			<a href="blog/{{ address }} "> {{ i[:-5] }} </a>
+			<a href="{{ url }}{{ address }} "> {{ i[:-5] }} </a>
 		{% endfor %}
 		</h2>
 	</body>

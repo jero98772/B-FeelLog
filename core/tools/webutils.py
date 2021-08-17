@@ -6,13 +6,19 @@ B→FeelLog - 2021 - by jero98772
 """
 import time
 import base64
-import hashlib
+from hashlib import sha256
 import os
 def writeTxt(name,content,option = "a"):
 	content = str(content)
 	with open(name, option) as file:
 		file.write(content)
 		file.close()
+def changeThis(name,old,new,option = "ab+",replaceTo="<!--this-->"):
+	oldString = replaceTo+old+replaceTo
+	newString = replaceTo+new+replaceTo
+	newContent = readFile(name).replace(oldString,newString)
+	#add integrate a main.py
+	writeTxt(name,newContent,option="w")
 def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 	if content == "":
 		initTemplate = "{% extends  'template.html'%}{% block content %}"
@@ -24,7 +30,7 @@ def writeblog(name,content,option = "ab+",replaceTo="<!--addition-->"):
 	writeTxt(name,newContent,option="w")
 def hashStrHex(password):
 	password = str(password)
-	hashPassowrd = str(hashlib.sha256(password.encode('utf-8')).hexdigest())
+	hashPassowrd = str(sha256(password.encode('utf-8')).hexdigest())
 	return hashPassowrd
 def upadateAuthor(author,newAuthor,path ):
 	newContent = readFile(path).replace(author,newAuthor)
@@ -40,8 +46,8 @@ def webTranslate(txt,writeIn,translateTo):
 	es -> spanish 
 	...
 	"""
-	from deep_translator import MyMemoryTranslator 
-	translatedTxt = MyMemoryTranslator(source=writeIn, target=translateTo).translate(txt)
+	from deep_translator import GoogleTranslator 
+	translatedTxt = GoogleTranslator(source=writeIn, target=translateTo).translate(txt)
 	return translatedTxt
 def manageTranslate(writeIn,translateTo):
 	try:
@@ -168,3 +174,53 @@ def getPrimaryLanguage(languages):
 		if language[0].isupper():
 			return language
 			break
+def clearName(txt,exludeChars,notavailablenames,limit=0,errorMsg = ["the name have some exlude characters , plese only use numeric and upper or lower case letters","the name exlucde the number of characters, limit is: "]):
+	if txt in notavailablenames:
+		msg = errorMsg[0]
+		okName = False
+	if exludeChars != "":
+		for i in txt:
+			if i in exludeChars:
+				msg = errorMsg[0]
+				okName = False
+				break
+			else: 
+				msg = ""
+				okName = True	
+	if len(txt) > limit :
+		okName = False
+		msg = errorMsg[1]+str(limit)+" of characters"
+	return okName ,msg
+def createFile(name,content=""):
+	content =str(content)
+	with open(name, 'x') as file:
+		file.write(" ")
+		file.close()
+def changeName(txt):
+	newname = ""
+	if txt[-1:] == " ":
+		newname = txt[:-1]
+	newname.replace(" ","_")
+	return newname
+def deleteFiles(path,selectedFiles):
+	for i in selectedFiles:
+		os.remove(path+file)
+def moveFiles(path,name,replacechar = "__"):
+	topicName = name[:name.index(replacechar)]
+	folderFile =  path+topicName+"/"
+	numOfFiles = len(os.listdir(folderFile))
+	print(numOfFiles)
+	if numOfFiles == 1:
+		createFile(folderFile[:-1]+".html", readFile(folderFile+topicName))
+def deleteAndMove(deletename,path,names,replacechar="__"):
+	for file in deletename:
+		print(path,file)
+		if "__" in file:
+			fileName = file.replace("__","/")
+			dirName = file[:file.index("__")]
+			numOfFiles = len(os.listdir(path+dirName+"/"))
+			print(numOfFiles)
+			if numOfFiles == 2:os.remove(path+fileName)
+			if numOfFiles == 1:os.remove(path+fileName);os.rmdir(path+dirName)			
+		else:
+			os.remove(path+file)
