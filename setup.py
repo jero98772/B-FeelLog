@@ -8,7 +8,7 @@ from core.tools.webutils import genTokenFile
 from setuptools import setup, find_packages
 setup(
 	name='B→FeelLog',
-	version='1.0.0',
+	version='1.0.1',
 	license='GPLv3',
 	author_email='jero98772@protonmail.com',
 	author='jero98772',
