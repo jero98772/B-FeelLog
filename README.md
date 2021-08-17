@@ -13,7 +13,7 @@ now is bilingual with support in
 
 **more information** [here](https://github.com/jero98772/B-FeelLog/blob/main/docs/FAQs.md)
 
-**video tutorial** [here](https://www.youtube.com/watch?v=CJTvvKGGbLQ)
+**video tutorial** [here](https://vimeo.com/manage/videos/580068235)
 
 please report some issues or if you need help 
 ### Made for:
