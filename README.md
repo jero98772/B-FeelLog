@@ -1,4 +1,7 @@
 # B-FeelLog
+
+![logo](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/B-feelog_logo1.jpg?raw=true)
+
 		Blog feel-log ,feel Blog   
 
 free source minimal multilingual blog maker and manager for different blog entries and multiple blog entries , with web interface. in this blog can use images but we looking to keep it minimalism.
