@@ -1,8 +1,11 @@
 {% extends  'template.html'%}
 {% block content %}
 	<h1>files</h1>
+	<br>
+	<h3>
 	{% for i in files %}
 		<a href="{{ whatisthis }}download/{{ i }}">{{ i }}</a><br>
 	{% endfor %}
+	</h3>
 
 {% endblock %}

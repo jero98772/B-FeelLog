@@ -52,3 +52,5 @@ the initial token is:
 ![translation](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2.png)
 ![configuration](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/4.png)
 ![topic](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/5.png)
+![files](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/6.png)
+

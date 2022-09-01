@@ -163,9 +163,6 @@ class webpage:
 		return render_template("config/deleteFiles.html",blogs = BLOGS,msg = msg)
 	@app.route(BLOGWEBDIR+"/uploadFile.html",methods = ["POST","GET"])
 	def uploadFile():
-		soundexts=[".mp3",".wav"]
-		videxts=[".mp4",".mov"]
-		imgexts=[".png",".jpg",".jpeg"]
 		if os.path.exists("static") and os.path.exists(FILEUPLOAD):		
 			if request.method == "POST":
 				if not os.path.exists(FILESONLINE):
