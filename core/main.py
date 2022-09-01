@@ -4,7 +4,7 @@
 B→FeelLog - 2021 - por jero98772
 B→FeelLog - 2021 - by jero98772
 """
-from flask import Flask, render_template ,request,session,redirect
+from flask import Flask, render_template ,request,session,redirect,send_file,send_from_directory
 from .tools.webutils import *
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -17,6 +17,10 @@ TOKENPATH = "data/token.txt"
 WHATISFILE = "data/whatisfile.txt"
 BLOGFILE = "core/blogs.py"
 INDEX = "/blog.html"
+FILEUPLOAD = "static/uploads"
+
+FILESONLINE = "core/templates/config/files.html"
+app.config['UPLOAD_FOLDER']=FILESONLINE
 TOKEN = readLine(TOKENPATH)
 AUTHOR = readLine(AUTHORFILE)
 USE = readLine(WHATISFILE)
@@ -157,3 +161,33 @@ class webpage:
 			deletemsg = str(deletechecks)[2:-2]
 			msg =  "file removed are :"+deletemsg
 		return render_template("config/deleteFiles.html",blogs = BLOGS,msg = msg)
+	@app.route(BLOGWEBDIR+"/uploadFile.html",methods = ["POST","GET"])
+	def uploadFile():
+		soundexts=[".mp3",".wav"]
+		videxts=[".mp4",".mov"]
+		imgexts=[".png",".jpg",".jpeg"]
+		if os.path.exists("static") and os.path.exists(FILEUPLOAD):		
+			if request.method == "POST":
+				if not os.path.exists(FILESONLINE):
+					writeblog(FILESONLINE,"",option = "w")
+				file = request.files["file"]
+				ext = getExt(file)
+				name = str(len(os.listdir(FILEUPLOAD)))+ext
+				file.save(FILEUPLOAD+"/"+name)
+		else:
+			os.mkdir(FILEUPLOAD)
+			os.mkdir("static")
+		return render_template("config/uploadFile.html",msg = "")
+	@app.route(BLOGWEBDIR+'/files.html', methods=['GET', 'POST'])
+	def file():
+		directory=os.getcwd()+"/"+FILEUPLOAD
+		directories=os.listdir(directory)
+		files=list(filter(isFile,directories))
+		files.sort()
+		return render_template("config/files.html",files=files,whatisthis=BLOGWEBDIR)
+	@app.route(BLOGWEBDIR+'/download/<string:filename>', methods = ["GET", "POST"])
+	def download(filename):
+		filename=FILEUPLOAD+"/"+filename
+		uploads = os.path.join(app.root_path+"/..", "")
+		return send_from_directory(directory=uploads,path=filename,as_attachment=True)
+	

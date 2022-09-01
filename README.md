@@ -46,6 +46,9 @@ the initial token is:
 	defaulttoken
 
 ### Screenshots
-![main](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-06-185257_770x321_scrot.png)
-![flex blog](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-06-165512_752x551_scrot.png)
-![translation](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2021-05-07-203242_822x595_scrot.png)
+![main](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/0.png)
+![add](https://github.com/jero98772/B-FeelLog/blob/main/docs/1.png)
+![add2](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/3.png)
+![translation](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2.png)
+![configuration](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/4.png)
+![topic](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/5.png)

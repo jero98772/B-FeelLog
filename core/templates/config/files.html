@@ -1,0 +1,8 @@
+{% extends  'template.html'%}
+{% block content %}
+	<h1>files</h1>
+	{% for i in files %}
+		<a href="{{ whatisthis }}download/{{ i }}">{{ i }}</a><br>
+	{% endfor %}
+
+{% endblock %}

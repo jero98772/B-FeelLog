@@ -1,0 +1,19 @@
+{% extends  'template.html'%}
+{% block content %}
+{% if session['loged'] %}
+<h1>upload file</h1>
+add file
+<br>
+<form method="post"  enctype="multipart/form-data">
+<input type="file" name="file">
+<br>
+<input type="submit" value="submit">
+</form>
+{% else %}
+<h1>token</h1>
+add token
+<h1>please get loged!!</h1>
+<p>error: you cannot perform this operation unless you are root.</p>
+<p> please get loged with your token!!</p>
+{% endif %}
+{% endblock %}

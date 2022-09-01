@@ -224,3 +224,21 @@ def deleteAndMove(deletename,path,names,replacechar="__"):
 			if numOfFiles == 1:os.remove(path+fileName);os.rmdir(path+dirName)			
 		else:
 			os.remove(path+file)
+def getExt(filename):
+	"""
+	getExt(filename) return extencion of file 
+	"""
+	isPoint = False
+	for i in str(filename):
+		if i == ".":
+			ext = "."
+			isPoint = True
+		elif isPoint:
+			if i == "'":
+				break
+			ext += i
+	return ext
+
+isFile=lambda x: not os.path.isdir(x)
+isFolder=lambda x:  os.path.isdir(x)
+addPath=lambda x,y: x+y 
