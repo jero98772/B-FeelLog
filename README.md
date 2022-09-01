@@ -47,7 +47,7 @@ the initial token is:
 
 ### Screenshots
 ![main](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/0.png)
-![add](https://github.com/jero98772/B-FeelLog/blob/main/docs/1.png)
+![add](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/1.png)
 ![add2](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/3.png)
 ![translation](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/2.png)
 ![configuration](https://github.com/jero98772/B-FeelLog/blob/main/docs/Screenshots/4.png)
