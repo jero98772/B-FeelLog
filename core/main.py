@@ -40,6 +40,7 @@ if os.path.isfile(BLOGFILE):
 class webpage:
 	app.secret_key = TOKEN
 	print("\n* Configuration token:\n"+TOKEN+"\n","go to :\n\n\tlocalhost:9600"+BLOGWEBDIR+TOKEN+"/\n\nto get acces to configuration , rember your token is\n\n\t"+TOKEN,"\n")
+	@app.route("/")
 	@app.route(INDEX)
 	def index():
 		session["author"] = AUTHOR
